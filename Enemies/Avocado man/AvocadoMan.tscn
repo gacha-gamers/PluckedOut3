@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Enemies/Avocado man/AvocadoMan.gd" type="Script" id=1]
+[ext_resource path="res://Enemies/Global/BulletPatterns/BulletPattern.gd" type="Script" id=2]
+[ext_resource path="res://Global/LivingEntity/LivingEntity.gd" type="Script" id=3]
+[ext_resource path="res://Enemies/Avocado man/Assets/avocado_guy.png" type="Texture" id=4]
+[ext_resource path="res://Enemies/Global/Bullet/Bullet.tscn" type="PackedScene" id=5]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 13.0384
+
+[node name="AvocadoMan" type="KinematicBody2D"]
+scale = Vector2( 3, 3 )
+script = ExtResource( 1 )
+enemy_bullet_scene = ExtResource( 5 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 4 )
+
+[node name="Pattern1" type="Node2D" parent="."]
+script = ExtResource( 2 )
+bullet = ExtResource( 5 )
+
+[node name="LivingEntity" type="Area2D" parent="."]
+collision_layer = 4
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LivingEntity"]
+position = Vector2( 0, 1 )
+shape = SubResource( 1 )
+
+[node name="Tween" type="Tween" parent="."]

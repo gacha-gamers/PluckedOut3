@@ -99,7 +99,7 @@ func _on_Continue_pressed() -> void:
 	kill_pause_menu()
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("pause") and is_pause_menu:
+	if event.is_action_pressed("ui_cancel") and is_pause_menu:
 		kill_pause_menu()
 
 func kill_pause_menu():

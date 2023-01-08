@@ -9,13 +9,37 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Area2D",
+"class": "Attack",
+"language": "GDScript",
+"path": "res://Global/LivingEntity/Attack.gd"
+}, {
+"base": "Node2D",
+"class": "EnemyBullet",
+"language": "GDScript",
+"path": "res://Enemies/Global/Bullet/EnemyBullet.gd"
+}, {
+"base": "Area2D",
+"class": "LivingEntity",
+"language": "GDScript",
+"path": "res://Global/LivingEntity/LivingEntity.gd"
+}, {
 "base": "CanvasLayer",
 "class": "Menu",
 "language": "GDScript",
 "path": "res://Menu/Menu.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://Player/Player.gd"
 } ]
 _global_script_class_icons={
-"Menu": ""
+"Attack": "",
+"EnemyBullet": "",
+"LivingEntity": "",
+"Menu": "",
+"Player": ""
 }
 
 [application]
@@ -30,6 +54,7 @@ config/icon="res://icon.png"
 
 FadeTransition="*res://Other/FadeTransition/FadeTransition.tscn"
 SaveManager="*res://save_manager.gd"
+GlobalScript="*res://global_script.gd"
 
 [gui]
 
@@ -67,6 +92,13 @@ dash={
 , Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="World"
+2d_physics/layer_2="Player"
+2d_physics/layer_3="Enemy and bullets"
+2d_physics/layer_4="Bush"
 
 [physics]
 

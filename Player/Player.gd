@@ -1,18 +1,28 @@
+class_name Player
 extends KinematicBody2D
 
 export var SPEED: int = 10000
+export var dash_forward_animation_name = "dash_forward"
 export var walk_animation_name = "walk"
 export var walk_forward_animation_name = "walk_forward"
 export var walk_up_animation_name = "walk_up"
 export var idle_animation_name = "idle"
-export var dash_time = 0.2
-export var dash_speed_multiplier = 10
 onready var animations: AnimatedSprite = $Animations
+export var dash_distance = 300
+export var dash_duration = 0.6
+export var dash_cooldown = 1
 
-var dash = Vector2.ZERO # Vec2.zero for not dashing, any other vector for the direction. Must be normalized
-var dash_timer = 0
+var is_dashing = false
+var is_on_dash_cooldown = false
+
+func _ready() -> void:
+	GlobalScript.player = self
 
 func _physics_process(delta):
+	
+	if is_dashing():
+		return
+	
 	var velocity = Vector2.ZERO
 	
 	if Input.is_action_pressed("move_right"):
@@ -29,19 +39,9 @@ func _physics_process(delta):
 	if Input.is_action_pressed("move_down"):
 		velocity.y += 1
 	
-	if is_dashing():
-		velocity = dash
-		dash_timer += delta
-		
-		if dash_timer >= dash_time:
-			reset_dash()
-	
-	# play_walk_animation(velocity)
+	play_walk_animation(velocity)
 	
 	velocity = velocity.normalized() * SPEED * delta
-	
-	if is_dashing():
-		velocity *= dash_speed_multiplier
 	
 	move_and_slide(velocity)
 
@@ -50,20 +50,57 @@ func play_walk_animation(input):
 	elif input.y > 0: animations.play(walk_forward_animation_name)
 	else: animations.play(walk_up_animation_name)
 
-func reset_dash():
-	dash = Vector2.ZERO
-	dash_timer = 0
-
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("dash") and can_dash():
-		dash = (get_global_mouse_position() - position).normalized()
+		dash()
 
 func can_dash() -> bool:
-	if dash != Vector2.ZERO:
+	if is_dashing() or is_on_dash_cooldown:
 		return false
 	return true
 
 func is_dashing() -> bool:
-	if dash != Vector2.ZERO:
-		return true
-	return false
+	return is_dashing
+
+func dash():
+	is_dashing = true
+	animations.play('dash_forward')
+	
+	var direction = (get_global_mouse_position() - position).normalized()
+	var final = position + direction * dash_distance
+	if direction.x > 0: animations.flip_h = false
+	if direction.x < 0: animations.flip_h = true
+	
+	var dash_tween = create_tween()
+	dash_tween.set_trans(Tween.TRANS_CIRC)
+	dash_tween.set_ease(Tween.EASE_IN_OUT)
+	dash_tween.tween_property(
+		self,
+		"position",
+		final,
+		dash_duration
+	)
+	dash_tween.tween_callback(self, "dash_cooldown_start")
+
+
+func dash_cooldown_start():
+	is_on_dash_cooldown = true
+	is_dashing = false
+	
+	$ProgressBar.value = 0
+	$ProgressBar.visible = true
+	
+	var dash_tween = create_tween()
+	dash_tween.set_trans(Tween.TRANS_CIRC)
+	dash_tween.set_ease(Tween.EASE_OUT)
+	dash_tween.tween_property(
+		$ProgressBar,
+		"value",
+		100.0,
+		dash_cooldown
+	)
+	dash_tween.tween_callback(self, "dash_cooldown_end")
+
+func dash_cooldown_end():
+	is_on_dash_cooldown = false
+	$ProgressBar.visible = false

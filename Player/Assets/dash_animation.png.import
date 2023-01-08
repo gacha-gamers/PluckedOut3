@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/player_walk.png-99a27c54a8d2464c2a73190eee0d6426.stex"
+path="res://.import/dash_animation.png-72778720441035469f2d5c3fb543d129.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Player/Assets/player_walk.png"
-dest_files=[ "res://.import/player_walk.png-99a27c54a8d2464c2a73190eee0d6426.stex" ]
+source_file="res://Player/Assets/dash_animation.png"
+dest_files=[ "res://.import/dash_animation.png-72778720441035469f2d5c3fb543d129.stex" ]
 
 [params]
 
