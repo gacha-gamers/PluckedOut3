@@ -65,6 +65,7 @@ func is_dashing() -> bool:
 	return is_dashing
 
 func dash():
+	$DashSFX.play()
 	is_dashing = true
 	animations.play('dash_forward')
 	

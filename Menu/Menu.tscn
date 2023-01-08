@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Menu/Menu.gd" type="Script" id=1]
 [ext_resource path="res://Menu/MenuTheme.tres" type="Theme" id=2]
 [ext_resource path="res://Menu/font.tres" type="DynamicFontData" id=3]
 [ext_resource path="res://Menu/menu_background_bg.png" type="Texture" id=4]
+[ext_resource path="res://Sound/menu2.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sound/settings1.wav" type="AudioStream" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -208,11 +210,22 @@ This cannot be undone
 Click the button once more to confirm"
 align = 2
 
+[node name="MenuSound" type="AudioStreamPlayer" parent="Control"]
+stream = ExtResource( 5 )
+
+[node name="OptionSound" type="AudioStreamPlayer" parent="Control"]
+stream = ExtResource( 6 )
+
 [connection signal="item_selected" from="Control/SettingsBackground/VBoxContainer/Window/CheckBox" to="." method="select_window_mode"]
 [connection signal="value_changed" from="Control/SettingsBackground/VBoxContainer/VBoxContainer/Master/HSlider" to="." method="master_volume_changed"]
+[connection signal="mouse_entered" from="Control/ButtonsVBOX/Continue" to="." method="_button_mouse_entered"]
 [connection signal="pressed" from="Control/ButtonsVBOX/Continue" to="." method="_on_Continue_pressed"]
+[connection signal="mouse_entered" from="Control/ButtonsVBOX/Start" to="." method="_button_mouse_entered"]
 [connection signal="pressed" from="Control/ButtonsVBOX/Start" to="." method="_on_Start_pressed"]
 [connection signal="ready" from="Control/ButtonsVBOX/Start" to="Control/ButtonsVBOX/Start" method="grab_focus"]
+[connection signal="mouse_entered" from="Control/ButtonsVBOX/StartFB" to="." method="_button_mouse_entered"]
 [connection signal="pressed" from="Control/ButtonsVBOX/StartFB" to="." method="_on_StartFB_pressed"]
+[connection signal="mouse_entered" from="Control/ButtonsVBOX/Settings" to="." method="_button_mouse_entered"]
 [connection signal="pressed" from="Control/ButtonsVBOX/Settings" to="." method="_on_Settings_pressed"]
+[connection signal="mouse_entered" from="Control/ButtonsVBOX/Exit" to="." method="_button_mouse_entered"]
 [connection signal="pressed" from="Control/ButtonsVBOX/Exit" to="." method="_on_Exit_pressed"]
