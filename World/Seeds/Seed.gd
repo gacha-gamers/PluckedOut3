@@ -40,7 +40,7 @@ func grab_check():
 		return
 	
 	if player_in:
-		GlobalScript.seeds += 1
+		GlobalScript.seeds_count += 1
 		self.queue_free()
 
 func _process(delta: float) -> void:

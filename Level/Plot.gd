@@ -9,8 +9,8 @@ func _on_input_event(viewport, event : InputEvent, shape_idx):
 		plant()
 
 func plant():
-	if not has_crop and GlobalScript.seeds:
-		GlobalScript.seeds -= 1
+	if not has_crop and GlobalScript.seeds_count:
+		GlobalScript.seeds_count -= 1
 		var crop = crop_scene.instance()
 		add_child(crop)
 		has_crop = true

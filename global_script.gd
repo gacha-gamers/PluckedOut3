@@ -1,4 +1,5 @@
 extends Node
 
 var player: Player
-var seeds = 0
+var seeds_count = 0
+var wheat_count = 0

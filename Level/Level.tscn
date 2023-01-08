@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://World/Bush/Bush.tscn" type="PackedScene" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://World/ground_auto.png" type="Texture" id=11]
 [ext_resource path="res://World/dirtytile.png" type="Texture" id=12]
 [ext_resource path="res://Level/Plot.gd" type="Script" id=13]
+[ext_resource path="res://Player/wheat_counter.png" type="Texture" id=14]
 
 [sub_resource type="TileSet" id=53]
 0/name = "ground.png 0"
@@ -231,6 +232,9 @@ script = ExtResource( 8 )
 4/shapes = [  ]
 4/z_index = 0
 
+[sub_resource type="RectangleShape2D" id=55]
+extents = Vector2( 24, 24 )
+
 [sub_resource type="Shader" id=50]
 code = "shader_type canvas_item;
 uniform vec2 player_position;
@@ -280,8 +284,14 @@ func _on_entity_hurt():
 	hearts[entity.health].on_hit()
 "
 
-[sub_resource type="RectangleShape2D" id=55]
-extents = Vector2( 24, 24 )
+[sub_resource type="GDScript" id=56]
+script/source = "extends TextureRect
+
+export var property_name : String
+
+func _process(delta):
+	$Label.text = str(GlobalScript.get(property_name))
+"
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 3 )
@@ -328,6 +338,18 @@ position = Vector2( 294, 148 )
 
 [node name="AvocadoMan" parent="." instance=ExtResource( 5 )]
 
+[node name="Plot" type="Area2D" parent="."]
+position = Vector2( -120, 0 )
+script = ExtResource( 13 )
+crop_scene = ExtResource( 9 )
+
+[node name="Sprite" type="Sprite" parent="Plot"]
+scale = Vector2( 3, 3 )
+texture = ExtResource( 12 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plot"]
+shape = SubResource( 55 )
+
 [node name="EffectsLayer" type="CanvasLayer" parent="."]
 
 [node name="Vignette" type="ColorRect" parent="EffectsLayer"]
@@ -350,17 +372,53 @@ script = SubResource( 52 )
 entity_path = NodePath("../../Player/LivingEntity")
 heart_scene = ExtResource( 6 )
 
-[node name="Plot" type="Area2D" parent="."]
-position = Vector2( -120, 0 )
-script = ExtResource( 13 )
-crop_scene = ExtResource( 9 )
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 33.0
+margin_bottom = 56.0
+rect_scale = Vector2( 3, 3 )
 
-[node name="Sprite" type="Sprite" parent="Plot"]
-scale = Vector2( 3, 3 )
-texture = ExtResource( 12 )
+[node name="WheatIcon" type="TextureRect" parent="CanvasLayer/VBoxContainer"]
+margin_right = 17.0
+margin_bottom = 17.0
+texture = ExtResource( 14 )
+script = SubResource( 56 )
+property_name = "wheat_count"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Plot"]
-shape = SubResource( 55 )
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/WheatIcon"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -24.0
+margin_top = -14.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "111"
+align = 2
+valign = 2
+
+[node name="SeedsIcon" type="TextureRect" parent="CanvasLayer/VBoxContainer"]
+margin_top = 21.0
+margin_right = 17.0
+margin_bottom = 38.0
+texture = ExtResource( 14 )
+script = SubResource( 56 )
+property_name = "seeds_count"
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/SeedsIcon"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -8.0
+margin_top = -14.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "111"
+align = 2
+valign = 2
 
 [connection signal="entity_death" from="Player/LivingEntity" to="CanvasLayer" method="hide"]
 [connection signal="input_event" from="Plot" to="Plot" method="_on_input_event"]
