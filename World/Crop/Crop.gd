@@ -1,12 +1,13 @@
 extends AnimatedSprite
 
+signal harvested
+
 export var seeds_dropped = 1
 export var seed_scene: PackedScene
 
 var player_in = false
 
 func _ready() -> void:
-	position = GlobalScript.player.position
 	self.scale = Vector2.ZERO
 	
 	var tween = create_tween()
@@ -72,6 +73,8 @@ func harvest():
 			Vector2(0, 0),
 			1
 		)
+		
+		emit_signal("harvested")
 		tween.tween_callback(self, "despawn")
 
 func despawn():

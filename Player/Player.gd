@@ -16,7 +16,6 @@ export var crop_scene: PackedScene
 var is_dashing = false
 var is_on_dash_cooldown = false
 var crops_collected = 0
-var seeds_collected = 1
 
 func _ready() -> void:
 	GlobalScript.player = self
@@ -56,9 +55,6 @@ func play_walk_animation(input):
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("dash") and can_dash():
 		dash()
-	if event.is_action_pressed("plant") and seeds_collected > 0:
-		seeds_collected -= 1
-		plant()
 
 func can_dash() -> bool:
 	if is_dashing() or is_on_dash_cooldown:
