@@ -11,6 +11,7 @@ script = ExtResource( 3 )
 pause_menu = ExtResource( 4 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
+z_index = 1
 
 [node name="Bushes" type="Node2D" parent="."]
 

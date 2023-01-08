@@ -19,7 +19,7 @@ func _ready():
 	
 	$Control/SettingsBackground.rect_position = settings_background_default_position
 	
-	if not SaveManager.game_data["FirstPlay"]:
+	if not SaveManager.game_data["WatchLore"]:
 		$Control/ButtonsVBOX/StartFB.visible = true
 
 func _on_Exit_pressed():
@@ -30,7 +30,10 @@ func _on_Exit_pressed():
 
 
 func _on_Start_pressed():
-	FadeTransition.change_scene("res://Level/Level.tscn")
+	if SaveManager.game_data["WatchLore"]:
+		FadeTransition.change_scene("res://Lore/Lore.tscn")
+	else:
+		FadeTransition.change_scene("res://Level/Level.tscn")
 
 var settings_visible = false
 func _on_Settings_pressed():
@@ -113,11 +116,7 @@ func tween_end_callback():
 	get_tree().paused = false
 	self.queue_free()
 
-var warned = false
+
 func _on_StartFB_pressed() -> void:
-	if not warned:
-		$Control/Warning.visible = true
-		warned = true
-	else:
-		SaveManager.game_data = SaveManager.game_data_default
-		FadeTransition.change_scene("res://Level/Level.tscn")
+	SaveManager.game_data = SaveManager.game_data_default
+	FadeTransition.change_scene("res://Lore/Lore.tscn")

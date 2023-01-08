@@ -3,8 +3,7 @@ extends Node
 export var SAVE_FILE_PATH="user://savefile.gachagamers"
 var game_data = {}
 var game_data_default = {
-	"FirstPlay": true,
-	"Level": 0,
+	"WatchLore": true
 }
 
 func save():
