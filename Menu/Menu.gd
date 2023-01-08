@@ -37,6 +37,8 @@ func _on_Start_pressed():
 
 var settings_visible = false
 func _on_Settings_pressed():
+	$Control/OptionSound.play()
+	
 	var settings_tween = create_tween()
 	if is_pause_menu:
 		settings_tween.set_pause_mode(SceneTreeTween.TWEEN_PAUSE_PROCESS)
@@ -120,3 +122,7 @@ func tween_end_callback():
 func _on_StartFB_pressed() -> void:
 	SaveManager.game_data = SaveManager.game_data_default
 	FadeTransition.change_scene("res://Lore/Lore.tscn")
+
+
+func _button_mouse_entered() -> void:
+	$Control/MenuSound.play()
