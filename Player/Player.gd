@@ -15,10 +15,11 @@ export var crop_scene: PackedScene
 
 var is_dashing = false
 var is_on_dash_cooldown = false
-var crops_collected = 0
 
 func _ready() -> void:
 	GlobalScript.player = self
+	GlobalScript.wheat_count = 0
+	GlobalScript.seeds_count = 0
 
 func _physics_process(delta):
 	

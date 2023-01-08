@@ -50,21 +50,21 @@ grow_vertical = 0
 custom_constants/separation = 20
 
 [node name="Window" type="HBoxContainer" parent="Control/SettingsBackground/VBoxContainer"]
-margin_right = 210.0
-margin_bottom = 26.0
+margin_right = 166.0
+margin_bottom = 27.0
 custom_constants/separation = 15
 
 [node name="Label" type="Label" parent="Control/SettingsBackground/VBoxContainer/Window"]
 margin_top = 3.0
-margin_right = 72.0
-margin_bottom = 23.0
+margin_right = 53.0
+margin_bottom = 24.0
 theme = ExtResource( 2 )
 text = "Window"
 
 [node name="CheckBox" type="OptionButton" parent="Control/SettingsBackground/VBoxContainer/Window"]
-margin_left = 87.0
-margin_right = 210.0
-margin_bottom = 26.0
+margin_left = 68.0
+margin_right = 166.0
+margin_bottom = 27.0
 theme = ExtResource( 2 )
 text = "Windowed"
 flat = true
@@ -72,37 +72,37 @@ items = [ "Windowed", null, false, 0, null, "Borderless Windowed", null, false, 
 selected = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/SettingsBackground/VBoxContainer"]
-margin_top = 46.0
-margin_right = 210.0
-margin_bottom = 77.0
+margin_top = 47.0
+margin_right = 166.0
+margin_bottom = 78.0
 custom_constants/separation = 15
 alignment = 2
 
 [node name="Master" type="HBoxContainer" parent="Control/SettingsBackground/VBoxContainer/VBoxContainer"]
-margin_right = 210.0
+margin_right = 166.0
 margin_bottom = 31.0
 custom_constants/separation = 15
 alignment = 2
 
 [node name="Label" type="Label" parent="Control/SettingsBackground/VBoxContainer/VBoxContainer/Master"]
 margin_top = 5.0
-margin_right = 68.0
-margin_bottom = 25.0
+margin_right = 49.0
+margin_bottom = 26.0
 theme = ExtResource( 2 )
 text = "Volume"
 
 [node name="current" type="Label" parent="Control/SettingsBackground/VBoxContainer/VBoxContainer/Master"]
-margin_left = 83.0
+margin_left = 64.0
 margin_top = 5.0
-margin_right = 114.0
-margin_bottom = 25.0
+margin_right = 95.0
+margin_bottom = 26.0
 rect_min_size = Vector2( 31, 0 )
 theme = ExtResource( 2 )
 text = "100"
 
 [node name="HSlider" type="HSlider" parent="Control/SettingsBackground/VBoxContainer/VBoxContainer/Master"]
-margin_left = 129.0
-margin_right = 195.0
+margin_left = 110.0
+margin_right = 151.0
 margin_bottom = 16.0
 grow_horizontal = 0
 grow_vertical = 0
@@ -115,8 +115,8 @@ tick_count = 100
 ticks_on_borders = true
 
 [node name="Padding" type="Label" parent="Control/SettingsBackground/VBoxContainer/VBoxContainer/Master"]
-margin_left = 210.0
-margin_right = 210.0
+margin_left = 166.0
+margin_right = 166.0
 margin_bottom = 31.0
 text = "
 "
@@ -158,7 +158,7 @@ align = 0
 
 [node name="Start" type="Button" parent="Control/ButtonsVBOX"]
 margin_right = 232.0
-margin_bottom = 46.0
+margin_bottom = 39.0
 size_flags_vertical = 3
 theme = ExtResource( 2 )
 text = "Start"
@@ -177,9 +177,9 @@ flat = true
 align = 0
 
 [node name="Settings" type="Button" parent="Control/ButtonsVBOX"]
-margin_top = 57.0
+margin_top = 50.0
 margin_right = 232.0
-margin_bottom = 103.0
+margin_bottom = 90.0
 size_flags_vertical = 3
 theme = ExtResource( 2 )
 text = "Settings"
@@ -187,9 +187,9 @@ flat = true
 align = 0
 
 [node name="Exit" type="Button" parent="Control/ButtonsVBOX"]
-margin_top = 114.0
+margin_top = 101.0
 margin_right = 232.0
-margin_bottom = 160.0
+margin_bottom = 141.0
 size_flags_vertical = 3
 theme = ExtResource( 2 )
 text = "Exit"

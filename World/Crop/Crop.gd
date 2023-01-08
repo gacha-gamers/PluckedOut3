@@ -64,7 +64,7 @@ func harvest():
 		for _a in range(seeds_dropped):
 			var seeds = seed_scene.instance()
 			get_tree().get_root().add_child(seeds)
-		GlobalScript.player.crops_collected += 1
+		GlobalScript.wheat_count += 1
 		var tween = create_tween()
 		tween.set_trans(Tween.TRANS_BOUNCE)
 		tween.tween_property(

@@ -12,7 +12,6 @@ func _on_Area2D_body_exited(body: Node) -> void:
 
 func _process(delta: float) -> void:
 	if player_in and GlobalScript.player.is_dashing():
-		print(1)
 		for _a in range(seeds_per_bush):
 			var seeds = seed_scene.instance()
 			get_tree().get_root().add_child(seeds)

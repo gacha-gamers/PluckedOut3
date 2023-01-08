@@ -3,7 +3,7 @@
 [ext_resource path="res://Menu/font.tres" type="DynamicFontData" id=1]
 
 [sub_resource type="DynamicFont" id=4]
-size = 40
+size = 30
 font_data = ExtResource( 1 )
 
 [sub_resource type="ImageTexture" id=5]
