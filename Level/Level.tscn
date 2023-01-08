@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://World/Bush/Bush.tscn" type="PackedScene" id=2]
@@ -234,6 +234,28 @@ script = ExtResource( 8 )
 4/shapes = [  ]
 4/z_index = 0
 
+[sub_resource type="GDScript" id=58]
+script/source = "extends Camera2D
+
+func _ready():
+	pass
+	#GameEvents.connect(\"shake_camera\", self, \"shake\")
+
+func shake(amount : float):
+	$Tween.interpolate_method(self, \"_shake_amount\", amount, 0, 0.3, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
+	$Tween.start()
+
+func _shake_amount(amount : float):
+	offset = Vector2.RIGHT.rotated(randf() * PI * 2) * amount
+
+func _on_entity_free():
+	var parent = get_parent()
+	var transf = global_transform
+	parent.remove_child(self)
+	parent.get_parent().add_child(self)
+	global_transform = transf
+"
+
 [sub_resource type="RectangleShape2D" id=55]
 extents = Vector2( 24, 24 )
 
@@ -336,6 +358,7 @@ limit_smoothed = true
 smoothing_enabled = true
 smoothing_speed = 3.0
 editor_draw_limits = true
+script = SubResource( 58 )
 
 [node name="Bushes" type="Node2D" parent="."]
 
@@ -433,6 +456,7 @@ align = 2
 valign = 2
 
 [connection signal="entity_death" from="Player/LivingEntity" to="CanvasLayer" method="hide"]
+[connection signal="entity_free" from="Player/LivingEntity" to="Player/Camera2D" method="_on_entity_free"]
 [connection signal="input_event" from="Plot" to="Plot" method="_on_input_event"]
 
 [editable path="Player"]
