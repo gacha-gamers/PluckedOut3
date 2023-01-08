@@ -2,11 +2,13 @@ extends Control
 
 export var time_idle_till_warning = 5
 export var lore_data = [
-	"""What's that sound?
-	Footsteps?""",
-	"""Has the harvesting season arrived already?""",
-	"""Impossible! It must have come sooner this year!""",
-	"I must warn my friends!",
+	"""You are the greatest farmer in the world.""",
+	"""Recognized by 皆さん, you sought more glory...""",
+	"""That's when you tried to farm
+	In the cursed lands""",
+	"""Where wheat seeds grow from grass""",
+	"But at the same time...",
+	"""Avocado-sama's abode..."""
 ]
 var index = 0
 var screen_has_text = false 
@@ -23,6 +25,7 @@ func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 	if not screen_has_text:
 		index += 1
 		if index == len(lore_data):
+			SaveManager.game_data["WatchLore"] = false
 			FadeTransition.change_scene("res://Level/Level.tscn")
 			return
 		else:
