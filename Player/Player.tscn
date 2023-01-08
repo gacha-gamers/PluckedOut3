@@ -4,7 +4,6 @@
 [ext_resource path="res://Player/Assets/player_walk.png" type="Texture" id=2]
 [ext_resource path="res://Player/Assets/dash_animation.png" type="Texture" id=3]
 [ext_resource path="res://Global/LivingEntity/LivingEntity.tscn" type="PackedScene" id=4]
-[ext_resource path="res://World/Crop/Crop.tscn" type="PackedScene" id=5]
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 3 )
@@ -100,7 +99,6 @@ bg_color = Color( 0.576471, 0, 0.6, 1 )
 collision_layer = 2
 collision_mask = 5
 script = ExtResource( 1 )
-crop_scene = ExtResource( 5 )
 
 [node name="Animations" type="AnimatedSprite" parent="."]
 scale = Vector2( 3, 3 )

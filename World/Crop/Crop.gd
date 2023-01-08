@@ -48,12 +48,11 @@ func timer(delta):
 	timer = 0
 	stage += 1
 
-	if stage == stages:
+	if stage == stages - 1:
 		harvestable = true
 		$ready.visible = true
 		$ready.play('default')
-	else:
-		self.frame = stage
+	self.frame = stage
 
 func harvest():
 	if !harvestable or harvested:
