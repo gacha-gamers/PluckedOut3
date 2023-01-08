@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Player/health_ui.png" type="Texture" id=1]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 11, 11 )
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends TextureRect
+
+onready var atlas_texture = texture as AtlasTexture
+export var animation_duration = 1.0
+
+var timer = 0
+var frames = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5]
+
+onready var animation_frames = len(frames)
+
+func on_hit():
+	modulate = Color(0.1, 0.15, 0.2)
+	set_process(false)
+"
+
+[node name="Heart" type="TextureRect"]
+margin_right = 8.0
+margin_bottom = 8.0
+rect_min_size = Vector2( 0, 8 )
+texture = SubResource( 1 )
+script = SubResource( 2 )
+animation_duration = 2.0

@@ -6,18 +6,18 @@ export var is_aimed : bool = true
 export var is_even : bool = false
 
 export var is_clock_on : bool = true
-export var clock_rate : float = 1
+export(float, 0.01, 20) var clock_rate : float = 1
 export var clock_noise : float = 0
 
-export var burst_rate : float = 1
+export(float, 0.01, 20) var burst_rate : float = 1
 export var burst_noise : float = 0
 export var burst_power : int = 1
 
-export var spread_arc : float = 60
+export(float, 0, 360) var spread_arc : float = 60
 export var spread_noise : float = 0
 export var spread_power : int = 1
 
-export var spin_angle : float = 0
+export(float, 0, 360) var spin_angle : float = 0
 export var spin_noise : float = 0
 
 export var pressure : float = 1
@@ -100,5 +100,5 @@ func reset_timer(is_burst : bool, force_reset_timer : bool = false):
 	# as it makes timer more accurate at different framerates
 	shoot_timer -= shoot_timer if force_reset_timer else shoot_timer_end
 	
-	shoot_timer_end = factor_noise(1/burst_rate, burst_noise) if is_burst\
-				else factor_noise(1/clock_rate, clock_noise)
+	shoot_timer_end = factor_noise(1/max(0.0001, burst_rate), burst_noise) if is_burst\
+				else factor_noise(1/max(0.0001, clock_rate), clock_noise)

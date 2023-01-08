@@ -17,23 +17,10 @@ func _process(delta):
 		attack_timer = 0.0
 		move_to(Vector2(rand_range(256, 1024), rand_range(256, 1024)), 1)
 	
-	if random_attack == 0 and attack_timer == 0.0:
-		$Pattern1.fire_burst()
-#		for bullet in range(0, attack0_number_bullets):
-#			spawn_bullet(position, bullet * (2*PI / attack0_number_bullets))
-	
+	#if random_attack == 0 and attack_timer == 0.0:
+	#	$Pattern1.fire_burst()
+
 	attack_timer += delta
-
-export var enemy_bullet_scene: PackedScene
-
-func spawn_bullet(position : Vector2, direction : float):
-	var vector = Vector2.RIGHT.rotated(direction).normalized()
-	
-	var bullet: EnemyBullet = enemy_bullet_scene.instance()
-	bullet.position = position
-	bullet.vector = vector
-	bullet.rotation = rotation
-	get_parent().add_child(bullet)
 
 func get_random_int(low, high) -> int:
 	var random = RandomNumberGenerator.new()

@@ -64,7 +64,7 @@ func die():
 	emit_signal("entity_death")
 
 func _on_GetBigger_tween_all_completed():
-	if game_ends_when_killed: FadeTransition.change_scene("res://Menus/MainMenu/MainMenu.tscn")
+	if game_ends_when_killed: FadeTransition.change_scene("res://Menu/Menu.tscn")
 	get_parent().queue_free()
 	emit_signal("entity_free")
 

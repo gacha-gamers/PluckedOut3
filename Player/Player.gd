@@ -50,7 +50,7 @@ func play_walk_animation(input):
 	elif input.y > 0: animations.play(walk_forward_animation_name)
 	else: animations.play(walk_up_animation_name)
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("dash") and can_dash():
 		dash()
 
@@ -80,6 +80,8 @@ func dash():
 		final,
 		dash_duration
 	)
+	
+	$LivingEntity.invincibility_timer = dash_duration
 	dash_tween.tween_callback(self, "dash_cooldown_start")
 
 
@@ -91,8 +93,8 @@ func dash_cooldown_start():
 	$ProgressBar.visible = true
 	
 	var dash_tween = create_tween()
-	dash_tween.set_trans(Tween.TRANS_CIRC)
-	dash_tween.set_ease(Tween.EASE_OUT)
+	dash_tween.set_trans(Tween.TRANS_QUAD)
+	dash_tween.set_ease(Tween.EASE_IN_OUT)
 	dash_tween.tween_property(
 		$ProgressBar,
 		"value",

@@ -11,7 +11,8 @@ radius = 8.0
 scale = Vector2( 3, 3 )
 texture = ExtResource( 2 )
 script = ExtResource( 1 )
-time_until_deletion = 20
+bullet_speed = 300.0
+time_until_deletion = 10
 
 [node name="Attack" type="Area2D" parent="."]
 scale = Vector2( 0.333333, 0.333333 )
