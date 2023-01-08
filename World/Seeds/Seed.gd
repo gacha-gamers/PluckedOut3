@@ -1,4 +1,4 @@
-extends Sprite
+extends Node2D
 
 export var distance_low = -100
 export var distance_high = 100
@@ -6,6 +6,7 @@ export var not_grabbable_time = 1
 
 var player_in = false
 var grabbable = false
+var is_wheat: bool
 
 func _on_Area2D_body_entered(body: Node) -> void:
 	player_in = true
@@ -40,8 +41,19 @@ func grab_check():
 		return
 	
 	if player_in:
-		GlobalScript.seeds_count += 1
+		if is_wheat:
+			GlobalScript.wheat_count += 1
+		else:
+			GlobalScript.seeds_count += 1
+		
 		self.queue_free()
 
 func _process(delta: float) -> void:
 	grab_check()
+
+func make_seed():
+	is_wheat = false
+	$Seed.visible = true
+func make_wheat():
+	is_wheat = true
+	$Wheat.visible = true

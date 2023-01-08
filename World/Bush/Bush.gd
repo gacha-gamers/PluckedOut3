@@ -14,6 +14,7 @@ func _process(delta: float) -> void:
 	if player_in and GlobalScript.player.is_dashing():
 		for _a in range(seeds_per_bush):
 			var seeds = seed_scene.instance()
+			seeds.make_seed()
 			get_tree().get_root().add_child(seeds)
 		
 		self.queue_free()

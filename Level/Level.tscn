@@ -325,6 +325,9 @@ font_data = ExtResource( 15 )
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ]
+}
 pause_menu = ExtResource( 4 )
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -415,7 +418,7 @@ custom_constants/separation = 1
 [node name="WheatIcon" type="TextureRect" parent="CanvasLayer/VBoxContainer"]
 margin_right = 17.0
 margin_bottom = 17.0
-texture = ExtResource( 16 )
+texture = ExtResource( 14 )
 script = SubResource( 56 )
 property_name = "wheat_count"
 
@@ -437,7 +440,7 @@ valign = 2
 margin_left = 18.0
 margin_right = 35.0
 margin_bottom = 17.0
-texture = ExtResource( 14 )
+texture = ExtResource( 16 )
 script = SubResource( 56 )
 property_name = "seeds_count"
 
