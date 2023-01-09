@@ -5,28 +5,23 @@
 [ext_resource path="res://Enemies/Avocado man/Assets/avocado_guy.png" type="Texture" id=3]
 [ext_resource path="res://Enemies/Slime/mini_slime-Sheet.png" type="Texture" id=4]
 
-[sub_resource type="AtlasTexture" id=44]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 0, 0, 22, 22 )
-
 [sub_resource type="AtlasTexture" id=45]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 22, 0, 22, 22 )
 
+[sub_resource type="AtlasTexture" id=44]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 22, 22 )
+
 [sub_resource type="AtlasTexture" id=46]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 44, 0, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=47]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 66, 0, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=48]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 88, 0, 22, 22 )
 
@@ -84,10 +79,15 @@ region = Rect2( 612, 0, 51, 34 )
 
 [sub_resource type="SpriteFrames" id=49]
 animations = [ {
+"frames": [ SubResource( 45 ) ],
+"loop": true,
+"name": "death",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 44 ), SubResource( 45 ), SubResource( 46 ), SubResource( 47 ), SubResource( 48 ) ],
 "loop": true,
 "name": "idle",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [ SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ) ],
 "loop": false,
@@ -122,21 +122,29 @@ spread_arc = 40.0
 spread_noise = 0.2
 spread_power = 3
 
+[node name="PanelContainer" parent="Pattern1/CanvasLayer/Panel" index="1"]
+visible = false
+
 [node name="LivingEntity" parent="." index="2"]
 health = 3
 invincibility_duration = 0.0
+death_size_multiplier = 2
 game_ends_when_killed = false
 
 [node name="ProgressBar" type="ProgressBar" parent="." index="4"]
 visible = false
-margin_left = -24.0
-margin_top = -43.0
-margin_right = 26.0
-margin_bottom = -33.0
+margin_left = -12.5
+margin_top = -19.667
+margin_right = 12.5
+margin_bottom = -15.667
 custom_fonts/font = SubResource( 50 )
 custom_styles/fg = SubResource( 51 )
 custom_styles/bg = SubResource( 52 )
+value = 100.0
 percent_visible = false
 
 [connection signal="entity_death" from="LivingEntity" to="." method="_on_LivingEntity_entity_death"]
+[connection signal="entity_death" from="LivingEntity" to="Animations" method="play" binds= [ "death" ]]
+[connection signal="entity_death" from="LivingEntity" to="Pattern1" method="set" binds= [ "is_clock_on", false ]]
+[connection signal="entity_death" from="LivingEntity" to="ProgressBar" method="hide"]
 [connection signal="entity_hurt" from="LivingEntity" to="." method="_on_LivingEntity_entity_hurt"]

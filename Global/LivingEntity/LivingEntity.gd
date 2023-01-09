@@ -33,6 +33,8 @@ func _on_area_entered(area):
 		attack.on_hit()
 
 func hurt(damage : int):
+	if is_dying: return
+	
 	health = clamp(health - damage, 0, maximum_health)
 	invincibility_timer = invincibility_duration
 	emit_signal("entity_hurt")
