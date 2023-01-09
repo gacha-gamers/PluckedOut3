@@ -24,3 +24,13 @@ func _physics_process(_delta):
 
 func get_player_position():
 	player_position = GlobalScript.player.position
+
+
+onready var total_health = $LivingEntity.health
+func _on_LivingEntity_entity_hurt():
+	$ProgressBar.visible = true
+	$ProgressBar.value = (float($LivingEntity.health) / float(total_health)) * 100
+
+
+func _on_LivingEntity_entity_death():
+	$ProgressBar.visible = false
