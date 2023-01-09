@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Enemies/Avocado man/AvocadoMan.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Enemies/Slime/Slime.gd" type="Script" id=2]
@@ -6,22 +6,27 @@
 [ext_resource path="res://Enemies/Slime/mini_slime-Sheet.png" type="Texture" id=4]
 
 [sub_resource type="AtlasTexture" id=44]
+flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=45]
+flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 22, 0, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=46]
+flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 44, 0, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=47]
+flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 66, 0, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=48]
+flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 88, 0, 22, 22 )
 
@@ -90,11 +95,19 @@ animations = [ {
 "speed": 13.0
 } ]
 
-[sub_resource type="CircleShape2D" id=50]
-radius = 3.0
+[sub_resource type="DynamicFontData" id=16]
+font_path = "res://Fonts/PixelOperator.ttf"
+
+[sub_resource type="DynamicFont" id=50]
+font_data = SubResource( 16 )
+
+[sub_resource type="StyleBoxFlat" id=51]
+bg_color = Color( 1, 0.541176, 0.843137, 1 )
+
+[sub_resource type="StyleBoxFlat" id=52]
+bg_color = Color( 0.576471, 0, 0.6, 1 )
 
 [node name="Slime" instance=ExtResource( 1 )]
-collision_layer = 4
 script = ExtResource( 2 )
 speed = 50
 shooting_speed = 1
@@ -104,16 +117,26 @@ player_position = Vector2( 100, 100 )
 frames = SubResource( 49 )
 
 [node name="Pattern1" parent="." index="1"]
-is_aimed = false
 is_even = true
 spread_arc = 40.0
+spread_noise = 0.2
 spread_power = 3
-spin_angle = 20.0
-pressure = 0.5
-pressure_noise = 0.1
 
-[node name="CanvasLayer" parent="Pattern1" index="0"]
+[node name="LivingEntity" parent="." index="2"]
+health = 3
+invincibility_duration = 0.0
+game_ends_when_killed = false
+
+[node name="ProgressBar" type="ProgressBar" parent="." index="4"]
 visible = false
+margin_left = -24.0
+margin_top = -43.0
+margin_right = 26.0
+margin_bottom = -33.0
+custom_fonts/font = SubResource( 50 )
+custom_styles/fg = SubResource( 51 )
+custom_styles/bg = SubResource( 52 )
+percent_visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="4"]
-shape = SubResource( 50 )
+[connection signal="entity_death" from="LivingEntity" to="." method="_on_LivingEntity_entity_death"]
+[connection signal="entity_hurt" from="LivingEntity" to="." method="_on_LivingEntity_entity_hurt"]

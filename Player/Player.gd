@@ -137,3 +137,17 @@ func dash_cooldown_end():
 func plant():
 	var crop = crop_scene.instance()
 	get_tree().get_root().add_child(crop)
+
+func check_attack():
+	if is_dashing():
+		$Attack.monitoring = true
+	else:
+		$Attack.monitoring = false
+
+func _process(delta):
+	check_attack()
+
+func _on_Attack_area_entered(area):
+	# Very cool workaround to check whehter it is a LivingEntity
+	if area.get_parent().get_node("LivingEntity"):
+		area.hurt(1)
