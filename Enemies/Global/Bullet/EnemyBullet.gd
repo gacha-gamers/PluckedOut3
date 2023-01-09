@@ -26,7 +26,10 @@ func _on_body_entered(_body):
 	$Attack.set_deferred("monitorable", false)
 	var tween = Tween.new()
 	add_child(tween)
-	vector *= 0.3
+	vector *= 0.15
+	
+	$CPUParticles2D.emitting = false
+	
 	tween.interpolate_property(self, "scale", scale, Vector2.ZERO, 0.5, Tween.TRANS_CIRC, Tween.EASE_OUT)
 	tween.interpolate_callback(self, 0.5, "queue_free")
 	tween.start()

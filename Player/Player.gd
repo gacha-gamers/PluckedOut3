@@ -8,11 +8,12 @@ export var walk_forward_animation_name = "walk_forward"
 export var walk_up_animation_name = "walk_up"
 export var idle_animation_name = "idle"
 onready var animations: AnimatedSprite = $Animations
-export var dash_distance = 300
+export var dash_distance = 250
 export var dash_duration = 0.6
 export var dash_cooldown = 1
 export var crop_scene: PackedScene
 
+var dash_position = Vector2.ZERO
 var is_dashing = false
 var is_on_dash_cooldown = false
 
@@ -22,31 +23,31 @@ func _ready() -> void:
 	GlobalScript.seeds_count = 0
 
 func _physics_process(delta):
-	
-	if is_dashing():
-		return
-	
 	var velocity = Vector2.ZERO
 	
-	if Input.is_action_pressed("move_right"):
-		velocity.x += 1
-		animations.flip_h = false
+	if is_dashing():
+		velocity = dash_position - position
+		move_and_collide(velocity)
+	else:
+		if Input.is_action_pressed("move_right"):
+			velocity.x += 1
+			animations.flip_h = false
+		
+		if Input.is_action_pressed("move_left"):
+			velocity.x += -1
+			animations.flip_h = true
+		
+		if Input.is_action_pressed("move_up"):
+			velocity.y += -1
+		
+		if Input.is_action_pressed("move_down"):
+			velocity.y += 1
+		
+		play_walk_animation(velocity)
+		
+		velocity = velocity.normalized() * SPEED * delta
 	
-	if Input.is_action_pressed("move_left"):
-		velocity.x += -1
-		animations.flip_h = true
-	
-	if Input.is_action_pressed("move_up"):
-		velocity.y += -1
-	
-	if Input.is_action_pressed("move_down"):
-		velocity.y += 1
-	
-	play_walk_animation(velocity)
-	
-	velocity = velocity.normalized() * SPEED * delta
-	
-	move_and_slide(velocity)
+		move_and_slide(velocity)
 
 func play_walk_animation(input):
 	if input.y == 0: animations.play(walk_animation_name)
@@ -80,10 +81,12 @@ func dash():
 	dash_tween.set_ease(Tween.EASE_IN_OUT)
 	dash_tween.tween_property(
 		self,
-		"position",
+		"dash_position",
 		final,
 		dash_duration
-	)
+	).from(position)
+	dash_position = position
+	#dash_direction = (final - position).normalized()
 	
 	$LivingEntity.invincibility_timer = dash_duration
 	dash_tween.tween_callback(self, "dash_cooldown_start")

@@ -1,50 +1,46 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Enemies/Global/Bullet/EnemyBullet.gd" type="Script" id=1]
-[ext_resource path="res://Enemies/Global/Bullet/Assets/medium_bullet.png" type="Texture" id=2]
-[ext_resource path="res://Global/LivingEntity/Attack.gd" type="Script" id=3]
-[ext_resource path="res://Other/pixel_4.png" type="Texture" id=4]
+[ext_resource path="res://Other/pixel_4.png" type="Texture" id=2]
+[ext_resource path="res://Global/LivingEntity/Attack.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Enemies/Global/Bullet/Assets/medium_bullet.png" type="Texture" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 8.0
 
-[sub_resource type="CircleShape2D" id=2]
-radius = 8.0
-
-[sub_resource type="Curve" id=3]
+[sub_resource type="Curve" id=2]
 _data = [ Vector2( 0, 1 ), 0.0, -0.289549, 0, 0, Vector2( 1, 0 ), -3.37217, 0.0, 0, 0 ]
 
 [node name="Bullet" type="Sprite"]
-scale = Vector2( 3, 3 )
-texture = ExtResource( 2 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 4 )
 offset = Vector2( 0.5, 0.5 )
 script = ExtResource( 1 )
-bullet_speed = 300.0
-time_until_deletion = 10
+bullet_speed = 175.0
+time_until_deletion = 20
 
-[node name="Attack" type="Area2D" parent="."]
-scale = Vector2( 0.333333, 0.333333 )
-collision_layer = 4
-collision_mask = 2
-script = ExtResource( 3 )
+[node name="Attack" parent="." instance=ExtResource( 3 )]
+scale = Vector2( 0.25, 0.25 )
 is_hostile = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack"]
-shape = SubResource( 1 )
 
 [node name="CollisionHitbox" type="Area2D" parent="."]
 scale = Vector2( 0.25, 0.25 )
 collision_layer = 0
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionHitbox"]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
+
+[node name="SlimeHitTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 show_behind_parent = true
-amount = 16
 lifetime = 0.5
 local_coords = false
-texture = ExtResource( 4 )
+texture = ExtResource( 2 )
 emission_shape = 1
 emission_sphere_radius = 2.0
 flag_align_y = true
@@ -52,7 +48,8 @@ spread = 180.0
 gravity = Vector2( 0, 0 )
 initial_velocity = 5.0
 initial_velocity_random = 0.25
-scale_amount_curve = SubResource( 3 )
+scale_amount_curve = SubResource( 2 )
 color = Color( 0.921569, 0.12549, 0.32549, 1 )
 
 [connection signal="body_entered" from="CollisionHitbox" to="." method="_on_body_entered"]
+[connection signal="timeout" from="SlimeHitTimer" to="." method="_on_slime_hit_timer_timeout"]

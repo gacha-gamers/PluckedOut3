@@ -71,7 +71,7 @@ func harvest():
 			self,
 			"scale",
 			Vector2(0, 0),
-			1
+			.1
 		)
 		
 		emit_signal("harvested")
