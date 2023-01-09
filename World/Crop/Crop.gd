@@ -59,6 +59,9 @@ func harvest():
 	if !harvestable or harvested:
 		return
 	
+	if GlobalScript.player == null:
+		return
+	
 	if GlobalScript.player.is_dashing() and player_in:
 		harvested = true
 		for _a in range(seeds_dropped):

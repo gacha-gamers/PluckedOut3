@@ -146,8 +146,22 @@ func check_attack():
 
 func _process(delta):
 	check_attack()
+	check_grab()
 
 func _on_Attack_area_entered(area):
 	# Very cool workaround to check whehter it is a LivingEntity
 	if area.get_parent().get_node("LivingEntity"):
 		area.hurt(1)
+
+
+func _on_LivingEntity_entity_hurt():
+	$hurt.play()
+
+var seeds1 = 0
+var wheat1 = 0
+func check_grab():
+	#I don't remember where the grab logic is
+	if seeds1 < GlobalScript.seeds_count or wheat1 > GlobalScript.wheat_count:
+		seeds1 = GlobalScript.seeds_count
+		wheat1 = GlobalScript.wheat_count
+		$grab.play()
