@@ -17,7 +17,7 @@ func follow_player():
 	_velocity = _velocity.normalized() * speed
 	$Animations.flip_h = _velocity.x < 0
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	get_player_position()
 	follow_player()
 	move_and_slide(_velocity)

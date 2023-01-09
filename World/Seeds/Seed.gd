@@ -10,10 +10,10 @@ export(Item) var item_type
 var player_in = false
 var grabbable = false
 
-func _on_Area2D_body_entered(body: Node) -> void:
+func _on_Area2D_body_entered(_body: Node) -> void:
 	player_in = true
 
-func _on_Area2D_body_exited(body: Node) -> void:
+func _on_Area2D_body_exited(_body: Node) -> void:
 	player_in = false
 
 func _ready() -> void:
@@ -68,7 +68,7 @@ func grab_check():
 		
 		self.queue_free()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	grab_check()
 
 func make_seed():

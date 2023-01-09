@@ -7,8 +7,8 @@ export var bush_scene : PackedScene
 export var spawn_interval = 1.0
 export var map_size = Vector2(1536, 1536)
 
-onready var dirt_tilemap : TileMap = get_node(dirt_tilemap_path)
-onready var fence_tilemap : TileMap = get_node(fence_tilemap_path)
+onready var dirt_tilemap : TileMap = get_node_or_null(dirt_tilemap_path)
+onready var fence_tilemap : TileMap = get_node_or_null(fence_tilemap_path)
 
 var spawn_timer = 0
 

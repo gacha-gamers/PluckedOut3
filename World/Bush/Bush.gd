@@ -4,13 +4,13 @@ var player_in = false
 export var seed_scene: PackedScene
 export var seeds_per_bush = Vector2(1, 3)
 
-func _on_Area2D_body_entered(body: Node) -> void:
+func _on_Area2D_body_entered(_body: Node) -> void:
 	player_in = true
 
-func _on_Area2D_body_exited(body: Node) -> void:
+func _on_Area2D_body_exited(_body: Node) -> void:
 	player_in = false
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if player_in and GlobalScript.player.is_dashing():
 		harvest()
 

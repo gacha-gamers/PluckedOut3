@@ -19,10 +19,10 @@ func _ready() -> void:
 		1
 	)
 	
-func _on_Area2D_body_entered(body: Node) -> void:
+func _on_Area2D_body_entered(_body: Node) -> void:
 	player_in = true
 
-func _on_Area2D_body_exited(body: Node) -> void:
+func _on_Area2D_body_exited(_body: Node) -> void:
 	player_in = false
 
 export var time_till_growth = 1

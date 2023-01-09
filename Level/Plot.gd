@@ -4,7 +4,7 @@ export var crop_scene: PackedScene
 
 var has_crop : bool = false
 
-func _on_input_event(viewport, event : InputEvent, shape_idx):
+func _on_input_event(_viewport, event : InputEvent, _shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == BUTTON_RIGHT:
 		plant()
 

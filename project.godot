@@ -56,6 +56,10 @@ FadeTransition="*res://Other/FadeTransition/FadeTransition.tscn"
 SaveManager="*res://save_manager.gd"
 GlobalScript="*res://global_script.gd"
 
+[debug]
+
+gdscript/warnings/return_value_discarded=false
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
