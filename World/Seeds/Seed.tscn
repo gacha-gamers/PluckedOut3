@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://World/Seeds/Seed.gd" type="Script" id=1]
 [ext_resource path="res://World/Seeds/seed.png" type="Texture" id=2]
 [ext_resource path="res://World/Seeds/wheat.png" type="Texture" id=3]
+[ext_resource path="res://Player/heart_pickup.png" type="Texture" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -26,6 +27,11 @@ shape = SubResource( 1 )
 visible = false
 scale = Vector2( 3, 3 )
 texture = ExtResource( 3 )
+
+[node name="Heart" type="Sprite" parent="."]
+visible = false
+scale = Vector2( 3, 3 )
+texture = ExtResource( 4 )
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

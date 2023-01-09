@@ -74,6 +74,8 @@ func harvest():
 			.1
 		)
 		
+		GlobalScript.player.reset_dash_cooldown()
+		
 		emit_signal("harvested")
 		tween.tween_callback(self, "despawn")
 

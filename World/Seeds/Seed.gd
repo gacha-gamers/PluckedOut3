@@ -1,12 +1,14 @@
 extends Node2D
 
+enum Item { SEEDS, WHEAT, HEART }
+
 export var distance_low = -100
 export var distance_high = 100
-export var not_grabbable_time = 1
+export var not_grabbable_time = 0.75
+export(Item) var item_type
 
 var player_in = false
 var grabbable = false
-var is_wheat: bool
 
 func _on_Area2D_body_entered(body: Node) -> void:
 	player_in = true
@@ -21,10 +23,25 @@ func _ready() -> void:
 	tween.set_trans(Tween.TRANS_ELASTIC)
 	tween.tween_property(
 		self,
-		"position",
-		GlobalScript.player.position + Vector2(get_random_float(distance_high, distance_low), get_random_float(distance_high, distance_low)),
+		"position:x",
+		get_random_float(distance_high, distance_low),
 		not_grabbable_time
-	)
+	).set_trans(Tween.TRANS_LINEAR).as_relative()
+	
+	var other_tween = create_tween()
+	other_tween.tween_property(
+		self,
+		"position:y",
+		-50.0,
+		not_grabbable_time / 2
+	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT).as_relative()
+	other_tween.tween_property(
+		self,
+		"position:y",
+		50.0,
+		not_grabbable_time
+	).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT).as_relative()
+	
 	tween.tween_callback(self, "make_grabbable")
 	
 
@@ -41,10 +58,13 @@ func grab_check():
 		return
 	
 	if player_in:
-		if is_wheat:
-			GlobalScript.wheat_count += 1
-		else:
-			GlobalScript.seeds_count += 1
+		match item_type:
+			Item.SEEDS:
+				GlobalScript.seeds_count += 1
+			Item.WHEAT:
+				GlobalScript.wheat_count += 1
+			Item.HEART:
+				GlobalScript.player.get_node("LivingEntity").heal(1)
 		
 		self.queue_free()
 
@@ -52,8 +72,13 @@ func _process(delta: float) -> void:
 	grab_check()
 
 func make_seed():
-	is_wheat = false
+	item_type = Item.SEEDS
 	$Seed.visible = true
+
 func make_wheat():
-	is_wheat = true
+	item_type = Item.WHEAT
 	$Wheat.visible = true
+
+func make_heart():
+	item_type = Item.HEART
+	$Heart.visible = true

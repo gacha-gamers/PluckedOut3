@@ -8,14 +8,17 @@ export var walk_forward_animation_name = "walk_forward"
 export var walk_up_animation_name = "walk_up"
 export var idle_animation_name = "idle"
 onready var animations: AnimatedSprite = $Animations
-export var dash_distance = 250
+export var dash_distance = 200
 export var dash_duration = 0.6
 export var dash_cooldown = 1
 export var crop_scene: PackedScene
 
+var dash_tween
+var dash_recharge_tween
 var dash_position = Vector2.ZERO
 var is_dashing = false
 var is_on_dash_cooldown = false
+var is_dash_recharge_skipped = false
 
 func _ready() -> void:
 	GlobalScript.player = self
@@ -76,7 +79,7 @@ func dash():
 	if direction.x > 0: animations.flip_h = false
 	if direction.x < 0: animations.flip_h = true
 	
-	var dash_tween = create_tween()
+	dash_tween = create_tween()
 	dash_tween.set_trans(Tween.TRANS_CIRC)
 	dash_tween.set_ease(Tween.EASE_IN_OUT)
 	dash_tween.tween_property(
@@ -91,24 +94,41 @@ func dash():
 	$LivingEntity.invincibility_timer = dash_duration
 	dash_tween.tween_callback(self, "dash_cooldown_start")
 
+func reset_dash():
+	dash_tween.kill()
+	
+	position = dash_position
+	is_dashing = false
+	
+	$LivingEntity.invincibility_timer = 0.3
+	
+	dash_cooldown_end()
+
+func reset_dash_cooldown():
+	is_dash_recharge_skipped = true
 
 func dash_cooldown_start():
-	is_on_dash_cooldown = true
 	is_dashing = false
+
+	if is_dash_recharge_skipped:
+		is_dash_recharge_skipped = false
+		return
+	
+	is_on_dash_cooldown = true
 	
 	$ProgressBar.value = 0
 	$ProgressBar.visible = true
 	
-	var dash_tween = create_tween()
-	dash_tween.set_trans(Tween.TRANS_QUAD)
-	dash_tween.set_ease(Tween.EASE_IN_OUT)
-	dash_tween.tween_property(
+	dash_recharge_tween = create_tween()
+	dash_recharge_tween.set_trans(Tween.TRANS_QUAD)
+	dash_recharge_tween.set_ease(Tween.EASE_IN_OUT)
+	dash_recharge_tween.tween_property(
 		$ProgressBar,
 		"value",
 		100.0,
 		dash_cooldown
 	)
-	dash_tween.tween_callback(self, "dash_cooldown_end")
+	dash_recharge_tween.tween_callback(self, "dash_cooldown_end")
 
 func dash_cooldown_end():
 	is_on_dash_cooldown = false

@@ -20,6 +20,10 @@ onready var animation_frames = len(frames)
 func on_hit():
 	modulate = Color(0.1, 0.15, 0.2)
 	set_process(false)
+
+func on_heal():
+	modulate = Color.white
+	set_process(true)
 "
 
 [node name="Heart" type="TextureRect"]

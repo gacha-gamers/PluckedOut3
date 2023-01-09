@@ -1,0 +1,106 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://Enemies/Avocado man/AvocadoMan.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Enemies/Slime/Slime.gd" type="Script" id=2]
+[ext_resource path="res://Enemies/Avocado man/Assets/avocado_guy.png" type="Texture" id=3]
+[ext_resource path="res://Enemies/Slime/mini_slime-Sheet.png" type="Texture" id=4]
+
+[sub_resource type="AtlasTexture" id=44]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 22, 22 )
+
+[sub_resource type="AtlasTexture" id=45]
+atlas = ExtResource( 4 )
+region = Rect2( 22, 0, 22, 22 )
+
+[sub_resource type="AtlasTexture" id=46]
+atlas = ExtResource( 4 )
+region = Rect2( 44, 0, 22, 22 )
+
+[sub_resource type="AtlasTexture" id=47]
+atlas = ExtResource( 4 )
+region = Rect2( 66, 0, 22, 22 )
+
+[sub_resource type="AtlasTexture" id=48]
+atlas = ExtResource( 4 )
+region = Rect2( 88, 0, 22, 22 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 51, 34 )
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 3 )
+region = Rect2( 51, 0, 51, 34 )
+
+[sub_resource type="AtlasTexture" id=33]
+atlas = ExtResource( 3 )
+region = Rect2( 102, 0, 51, 34 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 3 )
+region = Rect2( 153, 0, 51, 34 )
+
+[sub_resource type="AtlasTexture" id=35]
+atlas = ExtResource( 3 )
+region = Rect2( 204, 0, 51, 34 )
+
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 3 )
+region = Rect2( 255, 0, 51, 34 )
+
+[sub_resource type="AtlasTexture" id=37]
+atlas = ExtResource( 3 )
+region = Rect2( 306, 0, 51, 34 )
+
+[sub_resource type="AtlasTexture" id=38]
+atlas = ExtResource( 3 )
+region = Rect2( 357, 0, 51, 34 )
+
+[sub_resource type="AtlasTexture" id=39]
+atlas = ExtResource( 3 )
+region = Rect2( 408, 0, 51, 34 )
+
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 3 )
+region = Rect2( 459, 0, 51, 34 )
+
+[sub_resource type="AtlasTexture" id=41]
+atlas = ExtResource( 3 )
+region = Rect2( 510, 0, 51, 34 )
+
+[sub_resource type="AtlasTexture" id=42]
+atlas = ExtResource( 3 )
+region = Rect2( 561, 0, 51, 34 )
+
+[sub_resource type="AtlasTexture" id=43]
+atlas = ExtResource( 3 )
+region = Rect2( 612, 0, 51, 34 )
+
+[sub_resource type="SpriteFrames" id=49]
+animations = [ {
+"frames": [ SubResource( 44 ), SubResource( 45 ), SubResource( 46 ), SubResource( 47 ), SubResource( 48 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ) ],
+"loop": false,
+"name": "jump",
+"speed": 13.0
+} ]
+
+[node name="Slime" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+speed = 50
+shooting_speed = 1
+player_position = Vector2( 100, 100 )
+
+[node name="Animations" parent="." index="0"]
+frames = SubResource( 49 )
+
+[node name="Pattern1" parent="." index="1"]
+is_even = true
+spread_arc = 40.0
+spread_noise = 0.2
+spread_power = 3

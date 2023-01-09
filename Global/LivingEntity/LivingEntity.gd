@@ -2,6 +2,7 @@ class_name LivingEntity
 extends Area2D
 
 signal entity_hurt
+signal entity_healed
 signal entity_death
 signal entity_free
 
@@ -32,12 +33,16 @@ func _on_area_entered(area):
 		attack.on_hit()
 
 func hurt(damage : int):
-	health -= damage
+	health = clamp(health - damage, 0, maximum_health)
 	invincibility_timer = invincibility_duration
 	emit_signal("entity_hurt")
 	
 	if health <= 0:
 		die()
+
+func heal(heal : int):
+	health = clamp(health + heal, 0, maximum_health)
+	emit_signal("entity_healed")
 
 var is_dying = false
 func die():
