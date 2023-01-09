@@ -22,8 +22,8 @@ func spawn_bush():
 	var spawn_pos = Vector2.ZERO
 	while true:
 		spawn_pos = (Vector2(randf(), randf()) * 2 - Vector2.ONE) * map_size
-		if not dirt_tilemap or not fence_tilemap or dirt_tilemap.get_cellv(dirt_tilemap.world_to_map(spawn_pos / dirt_tilemap.scale)) == TileMap.INVALID_CELL\
-			and fence_tilemap.get_cellv(fence_tilemap.world_to_map(spawn_pos / fence_tilemap.scale)) == TileMap.INVALID_CELL:
+		if (not dirt_tilemap or dirt_tilemap.get_cellv(dirt_tilemap.world_to_map(spawn_pos / dirt_tilemap.scale)) == TileMap.INVALID_CELL)\
+			and (not fence_tilemap or fence_tilemap.get_cellv(fence_tilemap.world_to_map(spawn_pos / fence_tilemap.scale)) == TileMap.INVALID_CELL):
 			break
 	
 	var new_bush = bush_scene.instance()

@@ -8,7 +8,9 @@
 [ext_resource path="res://Sound/settings1.wav" type="AudioStream" id=6]
 
 [sub_resource type="DynamicFont" id=1]
-size = 50
+size = 64
+outline_size = 2
+outline_color = Color( 0.45098, 0.45098, 0.45098, 1 )
 font_data = ExtResource( 3 )
 
 [node name="MenuRoot" type="CanvasLayer"]
@@ -129,7 +131,7 @@ margin_bottom = 62.0
 grow_horizontal = 2
 grow_vertical = 2
 custom_fonts/font = SubResource( 1 )
-text = "TitlePlaceholder"
+text = "Slime Bridge"
 align = 1
 valign = 1
 

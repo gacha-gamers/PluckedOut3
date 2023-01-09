@@ -1,7 +1,8 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Enemies/Avocado man/AvocadoMan.gd" type="Script" id=1]
 [ext_resource path="res://Enemies/Global/BulletPatterns/BulletPattern.gd" type="Script" id=2]
+[ext_resource path="res://Other/pixel_4.png" type="Texture" id=3]
 [ext_resource path="res://Global/LivingEntity/LivingEntity.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Enemies/Global/Bullet/Bullet.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Enemies/Global/BulletPatterns/PatternEditor.gd" type="Script" id=6]
@@ -96,10 +97,11 @@ content_margin_bottom = 12.0
 bg_color = Color( 0.211765, 0.211765, 0.211765, 1 )
 
 [node name="AvocadoMan" type="KinematicBody2D"]
-scale = Vector2( 3, 3 )
+collision_layer = 16
 script = ExtResource( 1 )
 
 [node name="Animations" type="AnimatedSprite" parent="."]
+scale = Vector2( 3, 3 )
 frames = SubResource( 28 )
 animation = "idle"
 
@@ -110,6 +112,7 @@ spread_arc = 360.0
 spread_power = 5
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Pattern1"]
+visible = false
 script = ExtResource( 6 )
 
 [node name="Panel" type="WindowDialog" parent="Pattern1/CanvasLayer"]
@@ -139,6 +142,13 @@ text = "Properties"
 align = 1
 
 [node name="LivingEntity" parent="." instance=ExtResource( 4 )]
+position = Vector2( 0, 32 )
 collision_layer = 4
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 0, 0, 0, 0.25098 )
+position = Vector2( -4, 48 )
+scale = Vector2( 10, 1 )
+texture = ExtResource( 3 )

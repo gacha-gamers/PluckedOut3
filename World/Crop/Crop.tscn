@@ -65,6 +65,7 @@ scale = Vector2( 3, 3 )
 frames = SubResource( 4 )
 script = ExtResource( 1 )
 seed_scene = ExtResource( 4 )
+time_till_growth = 7
 
 [node name="Area2D" type="Area2D" parent="."]
 

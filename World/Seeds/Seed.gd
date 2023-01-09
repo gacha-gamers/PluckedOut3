@@ -1,6 +1,6 @@
 extends Node2D
 
-enum Item { SEEDS, WHEAT, HEART }
+enum Item { SEEDS, WHEAT, HEART, SLIMEBALL }
 
 export var distance_low = -100
 export var distance_high = 100
@@ -65,6 +65,13 @@ func grab_check():
 				GlobalScript.wheat_count += 1
 			Item.HEART:
 				GlobalScript.player.get_node("LivingEntity").heal(1)
+			Item.SLIMEBALL:
+				GlobalScript.slimeball_count += 1
+		
+		var pickup_sound = $PickupSound
+		remove_child(pickup_sound)
+		get_parent().add_child(pickup_sound)
+		pickup_sound.play()
 		
 		self.queue_free()
 
@@ -82,3 +89,7 @@ func make_wheat():
 func make_heart():
 	item_type = Item.HEART
 	$Heart.visible = true
+
+func make_slimeball():
+	item_type = Item.SLIMEBALL
+	$Slimeball.visible = true

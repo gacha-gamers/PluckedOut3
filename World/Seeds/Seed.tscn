@@ -1,11 +1,17 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://World/Seeds/Seed.gd" type="Script" id=1]
 [ext_resource path="res://World/Seeds/seed.png" type="Texture" id=2]
 [ext_resource path="res://World/Seeds/wheat.png" type="Texture" id=3]
 [ext_resource path="res://Player/heart_pickup.png" type="Texture" id=4]
+[ext_resource path="res://Sound/pickup.wav" type="AudioStream" id=5]
+[ext_resource path="res://Player/slimeball.png" type="Texture" id=6]
 
 [sub_resource type="CircleShape2D" id=1]
+
+[sub_resource type="AudioStreamRandomPitch" id=2]
+audio_stream = ExtResource( 5 )
+random_pitch = 1.2
 
 [node name="Seed" type="Node2D"]
 script = ExtResource( 1 )
@@ -32,6 +38,15 @@ texture = ExtResource( 3 )
 visible = false
 scale = Vector2( 3, 3 )
 texture = ExtResource( 4 )
+
+[node name="Slimeball" type="Sprite" parent="."]
+visible = false
+scale = Vector2( 3, 3 )
+texture = ExtResource( 6 )
+
+[node name="PickupSound" type="AudioStreamPlayer" parent="."]
+stream = SubResource( 2 )
+volume_db = -3.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

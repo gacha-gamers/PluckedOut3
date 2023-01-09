@@ -4,6 +4,9 @@ var player_in = false
 export var seed_scene: PackedScene
 export var seeds_per_bush = Vector2(1, 3)
 
+func _ready():
+	create_tween().tween_property(self, "scale", Vector2.ONE, 0.5).from(Vector2.ZERO).set_trans(Tween.TRANS_BOUNCE)
+
 func _on_Area2D_body_entered(_body: Node) -> void:
 	player_in = true
 

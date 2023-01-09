@@ -20,10 +20,14 @@ var is_dashing = false
 var is_on_dash_cooldown = false
 var is_dash_recharge_skipped = false
 
+var end_animation = false
+
 func _ready() -> void:
 	GlobalScript.player = self
-	GlobalScript.wheat_count = 0
-	GlobalScript.seeds_count = 0
+	GlobalScript.wheat_count = 30
+	GlobalScript.seeds_count = 1
+	GlobalScript.slimeball_count = 30
+	GlobalScript.timer = 0
 
 func _physics_process(delta):
 	var velocity = Vector2.ZERO
@@ -32,19 +36,22 @@ func _physics_process(delta):
 		velocity = dash_position - position
 		move_and_collide(velocity)
 	else:
-		if Input.is_action_pressed("move_right"):
-			velocity.x += 1
-			animations.flip_h = false
-		
-		if Input.is_action_pressed("move_left"):
-			velocity.x += -1
-			animations.flip_h = true
-		
-		if Input.is_action_pressed("move_up"):
-			velocity.y += -1
-		
-		if Input.is_action_pressed("move_down"):
-			velocity.y += 1
+		if end_animation:
+			velocity.x = 1
+		else:
+			if Input.is_action_pressed("move_right"):
+				velocity.x += 1
+				animations.flip_h = false
+			
+			if Input.is_action_pressed("move_left"):
+				velocity.x += -1
+				animations.flip_h = true
+			
+			if Input.is_action_pressed("move_up"):
+				velocity.y += -1
+			
+			if Input.is_action_pressed("move_down"):
+				velocity.y += 1
 		
 		play_walk_animation(velocity)
 		
@@ -53,10 +60,13 @@ func _physics_process(delta):
 		move_and_slide(velocity)
 
 func play_walk_animation(input):
-	if input.y == 0: animations.play(walk_animation_name)
-	elif input.y > 0: animations.play(walk_forward_animation_name)
-	else: animations.play(walk_up_animation_name)
-
+	#if input.y == 0: animations.play(walk_animation_name)
+	#elif input.y > 0: animations.play(walk_forward_animation_name)
+	if input.length() > 0.1:
+		animations.play(walk_animation_name)
+	else:
+		animations.play(idle_animation_name)
+		
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("dash") and can_dash():
 		dash()
@@ -88,7 +98,10 @@ func dash():
 		final,
 		dash_duration
 	).from(position)
+	dash_tween.parallel().tween_callback($DashParticles, "set_emitting", [false]).set_delay(dash_duration * 0.75)
 	dash_position = position
+	$DashParticles.direction = -(final - position).normalized()
+	$DashParticles.emitting = true
 	#dash_direction = (final - position).normalized()
 	
 	$LivingEntity.invincibility_timer = dash_duration
@@ -101,6 +114,7 @@ func reset_dash():
 	is_dashing = false
 	
 	$LivingEntity.invincibility_timer = 0.3
+	$DashParticles.emitting = false
 	
 	dash_cooldown_end()
 
@@ -165,3 +179,6 @@ func check_grab():
 		seeds1 = GlobalScript.seeds_count
 		wheat1 = GlobalScript.wheat_count
 		$grab.play()
+
+func play_end_animation():
+	end_animation = true

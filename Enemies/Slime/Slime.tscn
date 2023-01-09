@@ -1,33 +1,31 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://Enemies/Avocado man/AvocadoMan.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Enemies/Slime/Slime.gd" type="Script" id=2]
 [ext_resource path="res://Enemies/Avocado man/Assets/avocado_guy.png" type="Texture" id=3]
 [ext_resource path="res://Enemies/Slime/mini_slime-Sheet.png" type="Texture" id=4]
-[ext_resource path="res://Sound/die1.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sound/slime_die.wav" type="AudioStream" id=5]
+[ext_resource path="res://Other/pixel_4.png" type="Texture" id=6]
+[ext_resource path="res://Sound/slime_hit.wav" type="AudioStream" id=7]
+[ext_resource path="res://World/Seeds/Seed.tscn" type="PackedScene" id=8]
 
 [sub_resource type="AtlasTexture" id=45]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 22, 0, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=44]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=46]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 44, 0, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=47]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 66, 0, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=48]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 88, 0, 22, 22 )
 
@@ -107,14 +105,30 @@ font_path = "res://Fonts/PixelOperator.ttf"
 [sub_resource type="DynamicFont" id=50]
 font_data = SubResource( 16 )
 
-[sub_resource type="StyleBoxFlat" id=51]
-bg_color = Color( 1, 0.541176, 0.843137, 1 )
+[sub_resource type="StyleBoxFlat" id=54]
+bg_color = Color( 0.980392, 1, 0.643137, 1 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 0.709804, 0.705882, 0.360784, 1 )
 
-[sub_resource type="StyleBoxFlat" id=52]
-bg_color = Color( 0.576471, 0, 0.6, 1 )
+[sub_resource type="StyleBoxFlat" id=19]
+bg_color = Color( 0, 0, 0, 0.501961 )
+
+[sub_resource type="Curve" id=53]
+_data = [ Vector2( 0, 1 ), 0.0, -0.289549, 0, 0, Vector2( 1, 0 ), -3.37217, 0.0, 0, 0 ]
+
+[sub_resource type="AudioStreamRandomPitch" id=55]
+audio_stream = ExtResource( 7 )
+random_pitch = 1.2
+
+[sub_resource type="CircleShape2D" id=56]
+radius = 24.0
 
 [node name="Slime" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+drop_scene = ExtResource( 8 )
 speed = 50
 shooting_speed = 1
 player_position = Vector2( 100, 100 )
@@ -123,15 +137,20 @@ player_position = Vector2( 100, 100 )
 frames = SubResource( 49 )
 
 [node name="Pattern1" parent="." index="1"]
-is_even = true
-spread_arc = 40.0
-spread_noise = 0.2
-spread_power = 3
+is_aimed = false
+clock_rate = 0.6
+clock_noise = 0.1
+spread_noise = 0.05
+spread_power = 4
+spin_angle = 10.0
+pressure = 0.5
 
 [node name="PanelContainer" parent="Pattern1/CanvasLayer/Panel" index="1"]
 visible = false
 
 [node name="LivingEntity" parent="." index="2"]
+position = Vector2( 0, -2 )
+scale = Vector2( 1.5, 1.5 )
 health = 3
 invincibility_duration = 0.0
 death_size_multiplier = 2
@@ -139,22 +158,79 @@ game_ends_when_killed = false
 
 [node name="ProgressBar" type="ProgressBar" parent="." index="4"]
 visible = false
-margin_left = -12.5
-margin_top = -19.667
-margin_right = 12.5
-margin_bottom = -15.667
+margin_left = -24.0
+margin_top = -40.0
+margin_right = 24.0
+margin_bottom = -26.0
 custom_fonts/font = SubResource( 50 )
-custom_styles/fg = SubResource( 51 )
-custom_styles/bg = SubResource( 52 )
+custom_styles/fg = SubResource( 54 )
+custom_styles/bg = SubResource( 19 )
 value = 100.0
 percent_visible = false
 
-[node name="hurt" type="AudioStreamPlayer" parent="." index="5"]
+[node name="HurtParticles" type="CPUParticles2D" parent="." index="5"]
+show_behind_parent = true
+emitting = false
+amount = 16
+lifetime = 0.25
+one_shot = true
+explosiveness = 0.8
+local_coords = false
+texture = ExtResource( 6 )
+emission_shape = 1
+emission_sphere_radius = 2.0
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 250.0
+initial_velocity_random = 0.25
+angular_velocity = 7200.0
+scale_amount = 2.0
+scale_amount_random = 1.0
+scale_amount_curve = SubResource( 53 )
+color = Color( 0.847059, 1, 0.666667, 0.501961 )
+
+[node name="DeathParticles" type="CPUParticles2D" parent="." index="6"]
+show_behind_parent = true
+emitting = false
+amount = 32
+one_shot = true
+explosiveness = 0.8
+local_coords = false
+texture = ExtResource( 6 )
+emission_shape = 1
+emission_sphere_radius = 2.0
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 120.0
+initial_velocity_random = 0.5
+angular_velocity = 7200.0
+damping = 100.0
+scale_amount = 4.0
+scale_amount_random = 1.0
+scale_amount_curve = SubResource( 53 )
+color = Color( 0.203922, 1, 0.662745, 0.501961 )
+
+[node name="Sprite" type="Sprite" parent="." index="7"]
+modulate = Color( 0, 0, 0, 0.25098 )
+position = Vector2( 0, 12 )
+scale = Vector2( 10, 1 )
+texture = ExtResource( 6 )
+
+[node name="HurtSound" type="AudioStreamPlayer" parent="." index="8"]
+stream = SubResource( 55 )
+volume_db = -5.0
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="." index="9"]
 stream = ExtResource( 5 )
-volume_db = -18.361
+volume_db = -6.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="10"]
+shape = SubResource( 56 )
 
 [connection signal="entity_death" from="LivingEntity" to="." method="_on_LivingEntity_entity_death"]
 [connection signal="entity_death" from="LivingEntity" to="Animations" method="play" binds= [ "death" ]]
 [connection signal="entity_death" from="LivingEntity" to="Pattern1" method="set" binds= [ "is_clock_on", false ]]
 [connection signal="entity_death" from="LivingEntity" to="ProgressBar" method="hide"]
+[connection signal="entity_free" from="LivingEntity" to="." method="_on_LivingEntity_entity_free"]
 [connection signal="entity_hurt" from="LivingEntity" to="." method="_on_LivingEntity_entity_hurt"]
+[connection signal="entity_hurt" from="LivingEntity" to="HurtParticles" method="set_emitting" binds= [ true ]]

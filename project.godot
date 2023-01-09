@@ -60,6 +60,13 @@ GlobalScript="*res://global_script.gd"
 
 gdscript/warnings/return_value_discarded=false
 
+[display]
+
+window/size/width=1280
+window/size/height=720
+window/stretch/mode="2d"
+window/stretch/aspect="keep_width"
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
@@ -107,8 +114,9 @@ plant={
 
 2d_physics/layer_1="World"
 2d_physics/layer_2="Player"
-2d_physics/layer_3="Enemy and bullets"
+2d_physics/layer_3="Bullets"
 2d_physics/layer_4="Bush"
+2d_physics/layer_5="Enemies"
 
 [physics]
 
