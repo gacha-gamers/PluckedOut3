@@ -24,9 +24,9 @@ var end_animation = false
 
 func _ready() -> void:
 	GlobalScript.player = self
-	GlobalScript.wheat_count = 30
-	GlobalScript.seeds_count = 1
-	GlobalScript.slimeball_count = 30
+	GlobalScript.wheat_count = 0
+	GlobalScript.seeds_count = 0
+	GlobalScript.slimeball_count = 0
 	GlobalScript.timer = 0
 
 func _physics_process(delta):

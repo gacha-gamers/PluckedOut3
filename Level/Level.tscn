@@ -858,31 +858,58 @@ position = Vector2( 338, 288 )
 [node name="Plots" type="Node2D" parent="."]
 
 [node name="Plot" parent="Plots" instance=ExtResource( 12 )]
-position = Vector2( 216, 184 )
+position = Vector2( -8, 176 )
 
 [node name="Plot2" parent="Plots" instance=ExtResource( 12 )]
-position = Vector2( 216, 88 )
+position = Vector2( -8, 80 )
 
 [node name="Plot3" parent="Plots" instance=ExtResource( 12 )]
-position = Vector2( 216, -8 )
+position = Vector2( -8, -16 )
 
 [node name="Plot4" parent="Plots" instance=ExtResource( 12 )]
-position = Vector2( 308, 184 )
+position = Vector2( 84, 176 )
 
 [node name="Plot5" parent="Plots" instance=ExtResource( 12 )]
-position = Vector2( 308, 88 )
+position = Vector2( 84, 80 )
 
 [node name="Plot6" parent="Plots" instance=ExtResource( 12 )]
-position = Vector2( 308, -8 )
+position = Vector2( 84, -16 )
 
 [node name="Plot7" parent="Plots" instance=ExtResource( 12 )]
-position = Vector2( 400, 184 )
+position = Vector2( 176, 176 )
 
 [node name="Plot8" parent="Plots" instance=ExtResource( 12 )]
-position = Vector2( 400, 88 )
+position = Vector2( 176, 80 )
 
 [node name="Plot9" parent="Plots" instance=ExtResource( 12 )]
-position = Vector2( 400, -8 )
+position = Vector2( 176, -16 )
+
+[node name="Plot10" parent="Plots" instance=ExtResource( 12 )]
+position = Vector2( 40, 176 )
+
+[node name="Plot11" parent="Plots" instance=ExtResource( 12 )]
+position = Vector2( 40, 80 )
+
+[node name="Plot12" parent="Plots" instance=ExtResource( 12 )]
+position = Vector2( 40, -16 )
+
+[node name="Plot13" parent="Plots" instance=ExtResource( 12 )]
+position = Vector2( 132, 176 )
+
+[node name="Plot14" parent="Plots" instance=ExtResource( 12 )]
+position = Vector2( 132, 80 )
+
+[node name="Plot15" parent="Plots" instance=ExtResource( 12 )]
+position = Vector2( 132, -16 )
+
+[node name="Plot16" parent="Plots" instance=ExtResource( 12 )]
+position = Vector2( 224, 176 )
+
+[node name="Plot17" parent="Plots" instance=ExtResource( 12 )]
+position = Vector2( 224, 80 )
+
+[node name="Plot18" parent="Plots" instance=ExtResource( 12 )]
+position = Vector2( 224, -16 )
 
 [node name="EffectsLayer" type="CanvasLayer" parent="."]
 

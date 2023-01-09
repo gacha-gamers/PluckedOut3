@@ -36,7 +36,7 @@ func _on_AreaSelect_mouse_exited():
 	is_hovered = false
 
 func _on_AreaSelect_input_event(viewport, event, shape_idx):
-	if clickable and event is InputEventMouseButton and event.pressed and event.button_index == BUTTON_RIGHT:
+	if clickable and in_range and event is InputEventMouseButton and event.pressed and event.button_index == BUTTON_RIGHT:
 		click()
 
 func click():

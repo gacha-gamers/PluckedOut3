@@ -3,7 +3,7 @@ extends Control
 export var time_idle_till_warning = 5
 export var lore_data = [
 	"""You are the greatest farmer in the world.""",
-	"""Recognized by 皆さん, you sought more glory...""",
+	"""Recognized by all, you sought more glory...""",
 	"""That's when you tried to farm
 	In the cursed lands""",
 	"""Where wheat seeds grow from grass""",
@@ -26,7 +26,7 @@ func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 		index += 1
 		if index == len(lore_data):
 			SaveManager.game_data["WatchLore"] = false
-			FadeTransition.change_scene("res://Level/Level.tscn")
+			$WindowDialog.popup_centered()
 			return
 		else:
 			$Label.text = lore_data[index]
@@ -45,3 +45,7 @@ func _process(delta: float) -> void:
 	
 	if no_action_timer >= time_idle_till_warning:
 		$PressSpace.visible = true
+
+
+func _on_WindowDialog_popup_hide():
+	FadeTransition.change_scene("res://Level/Level.tscn")
